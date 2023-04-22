@@ -1,36 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 class Program
 {
     static void Main()
     {
-        Queue<int> queue = new Queue<int>();
-        int count = 0;
         int data = int.Parse(Console.ReadLine());
+        Queue<string> queueFirst = new Queue<string>();
+        Queue<string> queueSecond = new Queue<string>();
 
         for (int i = 0; i < data; i++)
         {
-            string[] tmp = Console.ReadLine().Split();
+            string[] order = Console.ReadLine().Split();
 
-            if (tmp[0] == "1")
+            if (order[0] == "1")
             {
-                queue.Enqueue(int.Parse(tmp[1]));
-                count++;
+                switch (order[1])
+                {
+                    case "1":
+                        queueFirst.Enqueue(order[2]);
+                        break;
+                    case "2":
+                        queueSecond.Enqueue(order[2]);
+                        break;
+                }
+            }
+            else if (order[0] == "2")
+            {
+                switch (order[1])
+                {
+                    case "1":
+                        Console.WriteLine(queueFirst.Peek());
+                        queueFirst.Dequeue();
+                        break;
+                    case "2":
+                        Console.WriteLine(queueSecond.Peek());
+                        queueSecond.Dequeue();
+                        break;
+                }
             }
             else
             {
-                continue;
-            }
-        }
-        Console.WriteLine(count);
-
-        for (int i = 0; i < data; i++)
-        {
-            if (queue.Count != 0)
-            {
-                Console.WriteLine(queue.Dequeue());
+                Console.WriteLine($"{queueFirst.Count} {queueSecond.Count}");
             }
         }
     }
