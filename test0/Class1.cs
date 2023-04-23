@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.MemoryMappedFiles;
 
 class Program
 {
     static void Main()
     {
         Console.ReadLine();
-        string[] strArray = Console.ReadLine().Split();
-        Stack<int> stack = new Stack<int>();
+        string parentheses = Console.ReadLine();
+        int nextSearchIndex = 0;
+        int count = 0;
 
-        for (int i = 0; i < strArray.Length; i++)
+        for (int i = 0; i < parentheses.Length - 1; i++)
         {
-            if (int.TryParse(strArray[i], out int result))
+            if (parentheses[i] == '(')
             {
-                stack.Push(result);
-            }
-            else
-            {
-                if (strArray[i] == "+")
+                if (i == 0) nextSearchIndex = i + 1;
+
+                for (int j = nextSearchIndex; j < parentheses.Length; j++)
                 {
-                    int a = stack.Pop(), b = stack.Pop();
-                    stack.Push(a + b);
-                }
-                else
-                {
-                    int a = stack.Pop(), b = stack.Pop();
-                    stack.Push(b - a);
+                    if (parentheses[j] == ')')
+                    {
+                        nextSearchIndex = j + 1;
+                        count++;
+                        break;
+                    }
                 }
             }
         }
-        Console.WriteLine(stack.Pop());
+        bool isCollect = count == parentheses.Length / 2 && parentheses.Length % 2 == 0;
+        Console.WriteLine(isCollect ? "Yes" : "No");
     }
 }
