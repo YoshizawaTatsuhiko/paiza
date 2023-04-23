@@ -5,32 +5,30 @@ class Program
 {
     static void Main()
     {
-        int data = int.Parse(Console.ReadLine().Split()[1]);
-        int[] intArray = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        int maxValue = int.MinValue;
-        int rememberIndex = 0;
-        int sum = 0;
+        Console.ReadLine();
+        string[] strArray = Console.ReadLine().Split();
+        Stack<int> stack = new Stack<int>();
 
-        for (int i = 0; i < intArray.Length - (data - 1); i++)
+        for (int i = 0; i < strArray.Length; i++)
         {
-            if (i == 0)
+            if (int.TryParse(strArray[i], out int result))
             {
-                for (int j = i; j < data; j++)
-                {
-                    sum += intArray[j];
-                }
+                stack.Push(result);
             }
             else
             {
-                sum = sum - intArray[i - 1] + intArray[i + data - 1];
-            }
-
-            if (maxValue < sum)
-            {
-                maxValue = sum;
-                rememberIndex = i;
+                if (strArray[i] == "+")
+                {
+                    int a = stack.Pop(), b = stack.Pop();
+                    stack.Push(a + b);
+                }
+                else
+                {
+                    int a = stack.Pop(), b = stack.Pop();
+                    stack.Push(b - a);
+                }
             }
         }
-        Console.WriteLine($"{maxValue} {intArray[rememberIndex]}");
+        Console.WriteLine(stack.Pop());
     }
 }
