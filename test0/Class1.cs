@@ -5,44 +5,32 @@ class Program
 {
     static void Main()
     {
-        int data = int.Parse(Console.ReadLine());
-        Queue<string> queueFirst = new Queue<string>();
-        Queue<string> queueSecond = new Queue<string>();
+        int data = int.Parse(Console.ReadLine().Split()[1]);
+        int[] intArray = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+        int maxValue = int.MinValue;
+        int rememberIndex = 0;
+        int sum = 0;
 
-        for (int i = 0; i < data; i++)
+        for (int i = 0; i < intArray.Length - (data - 1); i++)
         {
-            string[] order = Console.ReadLine().Split();
-
-            if (order[0] == "1")
+            if (i == 0)
             {
-                switch (order[1])
+                for (int j = i; j < data; j++)
                 {
-                    case "1":
-                        queueFirst.Enqueue(order[2]);
-                        break;
-                    case "2":
-                        queueSecond.Enqueue(order[2]);
-                        break;
-                }
-            }
-            else if (order[0] == "2")
-            {
-                switch (order[1])
-                {
-                    case "1":
-                        Console.WriteLine(queueFirst.Peek());
-                        queueFirst.Dequeue();
-                        break;
-                    case "2":
-                        Console.WriteLine(queueSecond.Peek());
-                        queueSecond.Dequeue();
-                        break;
+                    sum += intArray[j];
                 }
             }
             else
             {
-                Console.WriteLine($"{queueFirst.Count} {queueSecond.Count}");
+                sum = sum - intArray[i - 1] + intArray[i + data - 1];
+            }
+
+            if (maxValue < sum)
+            {
+                maxValue = sum;
+                rememberIndex = i;
             }
         }
+        Console.WriteLine($"{maxValue} {intArray[rememberIndex]}");
     }
 }
