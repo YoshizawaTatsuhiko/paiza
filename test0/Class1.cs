@@ -1,34 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.MemoryMappedFiles;
 
 class Program
 {
     static void Main()
     {
-        Console.ReadLine();
-        string parentheses = Console.ReadLine();
-        int nextSearchIndex = 0;
-        int count = 0;
+        int data = int.Parse(Console.ReadLine().Split()[1]);
+        int[] intArray = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+        Queue<int> queue = new Queue<int>();
+        int index = 0;
+        int passengerCount = 0;
 
-        for (int i = 0; i < parentheses.Length - 1; i++)
+        for (int i = 1; i <= intArray[intArray.Length - 1]; i++)
         {
-            if (parentheses[i] == '(')
-            {
-                if (i == 0) nextSearchIndex = i + 1;
+            bool judge = intArray[index] == i;
 
-                for (int j = nextSearchIndex; j < parentheses.Length; j++)
-                {
-                    if (parentheses[j] == ')')
-                    {
-                        nextSearchIndex = j + 1;
-                        count++;
-                        break;
-                    }
-                }
+            if (judge)
+            {
+                queue.Enqueue(1);
+                index++;
+                passengerCount++;
             }
+            else
+            {
+                queue.Enqueue(0);
+            }
+
+            if (queue.Count > data)
+            {
+                passengerCount -= queue.Dequeue();
+            }
+
+            if (judge) Console.WriteLine(passengerCount);
         }
-        bool isCollect = count == parentheses.Length / 2 && parentheses.Length % 2 == 0;
-        Console.WriteLine(isCollect ? "Yes" : "No");
     }
 }
