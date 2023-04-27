@@ -5,33 +5,29 @@ class Program
 {
     static void Main()
     {
-        int data = int.Parse(Console.ReadLine().Split()[1]);
-        int[] intArray = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        Queue<int> queue = new Queue<int>();
-        int index = 0;
-        int passengerCount = 0;
+        Console.ReadLine();
+        string parentheses = Console.ReadLine();
+        int count = 0;
 
-        for (int i = 1; i <= intArray[intArray.Length - 1]; i++)
+        if (parentheses.Length % 2 != 0)
         {
-            bool judge = intArray[index] == i;
-
-            if (judge)
-            {
-                queue.Enqueue(1);
-                index++;
-                passengerCount++;
-            }
-            else
-            {
-                queue.Enqueue(0);
-            }
-
-            if (queue.Count > data)
-            {
-                passengerCount -= queue.Dequeue();
-            }
-
-            if (judge) Console.WriteLine(passengerCount);
+            Console.WriteLine("No");
+            return;
         }
+
+        for (int i = 0; i < parentheses.Length - 1; i++)
+        {
+            if (parentheses[i] == '(')
+            {
+                count++;
+            }
+            else if (parentheses[i] == ')')
+            {
+                count--;
+            }
+
+            if (count < 0) break;
+        }
+        Console.WriteLine(count == 0 ? "Yes" : "No");
     }
 }
