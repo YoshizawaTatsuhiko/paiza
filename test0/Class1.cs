@@ -5,22 +5,41 @@ class Program
 {
     static void Main()
     {
-        uint data = uint.Parse(Console.ReadLine());
-        bool[] isPrime = new bool[data + 1];
+        int data = int.Parse(Console.ReadLine());
+        Dictionary<int, string> dic = new Dictionary<int, string>();
 
-        for (int i = 2; i <= data; i++)
-            isPrime[i] = true;
-
-        for (int i = 2; i < data; i++)
+        for (int i = 0; i < data; i++)
         {
-            if (isPrime[i] == true)
+            int n = int.Parse(Console.ReadLine());
+
+            if (dic.ContainsKey(n))
             {
-                for (int k = 2; i * k <= data; k++)
-                {
-                    if (isPrime[i * k] == true) isPrime[i * k] = false;
-                }
+                Console.WriteLine(dic[n]);
+                continue;
             }
+            
+            if (IsPrime(n))
+            {
+                dic.Add(n, "pass");
+            }
+            else
+            {
+                dic.Add(n, "failure");
+            }
+            Console.WriteLine(dic[n]);
         }
-        Console.WriteLine(isPrime[data] == true ? "YES" : "NO");
+    }
+
+    static bool IsPrime(int n)
+    {
+        if (n <= 1) return false;
+        if (n == 2) return true;
+        if (n % 2 == 0) return false;
+
+        for (int i = 3; i <= Math.Sqrt(n); i += 2)
+        {
+            if(n % i == 0) return false;
+        }
+        return true;
     }
 }
