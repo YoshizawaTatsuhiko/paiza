@@ -5,29 +5,17 @@ class Program
 {
     static void Main()
     {
-        Console.ReadLine();
-        string parentheses = Console.ReadLine();
-        int count = 0;
+        int n = 57;
+        bool isPrime = true;
 
-        if (parentheses.Length % 2 != 0)
+        for (int i = 3; i <= Math.Sqrt(n); i += 2)
         {
-            Console.WriteLine("No");
-            return;
-        }
-
-        for (int i = 0; i < parentheses.Length - 1; i++)
-        {
-            if (parentheses[i] == '(')
+            if (n % i == 0)
             {
-                count++;
+                isPrime = false;
+                break;
             }
-            else if (parentheses[i] == ')')
-            {
-                count--;
-            }
-
-            if (count < 0) break;
         }
-        Console.WriteLine(count == 0 ? "Yes" : "No");
+        Console.WriteLine(isPrime ? "YES" : "NO");
     }
 }
