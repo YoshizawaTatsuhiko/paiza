@@ -5,20 +5,22 @@ class Program
 {
     static void Main()
     {
-        long n = long.Parse(Console.ReadLine());
-        Console.WriteLine(IsPrime(n) ? "YES" : "NO");
-    }
+        uint data = uint.Parse(Console.ReadLine());
+        bool[] isPrime = new bool[data + 1];
 
-    static bool IsPrime(long n)
-    {
-        if(n <= 1) return false;
-        if(n == 2) return true;
-        if(n % 2 == 0) return false;
+        for (int i = 2; i <= data; i++)
+            isPrime[i] = true;
 
-        for (int i = 3; i <= Math.Sqrt(n); i += 2)
+        for (int i = 2; i < data; i++)
         {
-            if (n % i == 0) return false;
+            if (isPrime[i] == true)
+            {
+                for (int k = 2; i * k <= data; k++)
+                {
+                    if (isPrime[i * k] == true) isPrime[i * k] = false;
+                }
+            }
         }
-        return true;
+        Console.WriteLine(isPrime[data] == true ? "YES" : "NO");
     }
 }
