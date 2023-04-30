@@ -5,16 +5,20 @@ class Program
     static void Main()
     {
         int data = int.Parse(Console.ReadLine());
-        //int randomNumber = new Random().Next(2, data);
-        int randomNumber = 2;
-        int fermat = 1;
-
-        for (int i = 0; i < data - 1; i++)
+        
+        for (int i = 2; i <= data;)
         {
-            fermat *= randomNumber;
-            fermat = fermat % data;
+            if (data % i == 0)
+            {
+                data /= i;
+                Console.WriteLine(i);
+
+                if (data == 0) break;
+            }
+            else
+            {
+                i++;
+            }
         }
-        bool isPrime = data % randomNumber != 0 && fermat == 1;
-        Console.WriteLine(isPrime ? "YES" : "NO");
     }
 }
