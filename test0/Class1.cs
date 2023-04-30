@@ -5,20 +5,14 @@ class Program
     static void Main()
     {
         int data = int.Parse(Console.ReadLine());
-        
-        for (int i = 2; i <= data;)
-        {
-            if (data % i == 0)
-            {
-                data /= i;
-                Console.WriteLine(i);
+        double rootData = Math.Sqrt(data);
+        int divisorCount = 0;
 
-                if (data == 0) break;
-            }
-            else
-            {
-                i++;
-            }
+        for (int i = 1; i <= rootData; i++)
+        {
+            if (i == rootData) divisorCount++;
+            else if (data % i == 0) divisorCount += 2;
         }
+        Console.WriteLine(divisorCount);
     }
 }
