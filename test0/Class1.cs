@@ -1,18 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 
 class Program
 {
+    private static Dictionary<int, int> _divisor = new Dictionary<int, int>();
+
     static void Main()
     {
         int data = int.Parse(Console.ReadLine());
-        double rootData = Math.Sqrt(data);
-        int divisorCount = 0;
+        int ans = 0;
 
-        for (int i = 1; i <= rootData; i++)
+        for (int i = 0; i < data; i++)
         {
-            if (i == rootData) divisorCount++;
-            else if (data % i == 0) divisorCount += 2;
+            if (i == 0) ans = int.Parse(Console.ReadLine());
+            else
+            {
+                int n = int.Parse(Console.ReadLine());
+                ans = GCD(ans, n);
+            }
         }
-        Console.WriteLine(divisorCount);
+        Console.WriteLine(ans);
+    }
+
+    static int GCD(int a, int b)
+    {
+        if (a < b) GCD(b, a);
+
+        while (b != 0)
+        {
+            int remainder = a % b;
+            a = b;
+            b = remainder;
+        }
+        return a;
     }
 }
