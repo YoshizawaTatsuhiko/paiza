@@ -1,37 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
 
 class Program
 {
-    private static Dictionary<int, int> _divisor = new Dictionary<int, int>();
-
     static void Main()
     {
         int data = int.Parse(Console.ReadLine());
-        int ans = 0;
+        double ans = 0;
 
         for (int i = 0; i < data; i++)
         {
-            if (i == 0) ans = int.Parse(Console.ReadLine());
+            if (i == 0) ans = double.Parse(Console.ReadLine());
             else
             {
-                int n = int.Parse(Console.ReadLine());
-                ans = GCD(ans, n);
+                double n = double.Parse(Console.ReadLine());
+                ans = LCM(ans, n);
             }
         }
         Console.WriteLine(ans);
     }
 
-    static int GCD(int a, int b)
+    static double GCD(double a, double b)
     {
-        if (a < b) GCD(b, a);
+        if (a < b) return GCD(b, a);
 
         while (b != 0)
         {
-            int remainder = a % b;
+            double remainder = a % b;
             a = b;
             b = remainder;
         }
         return a;
+    }
+
+    static double LCM(double a, double b)
+    {
+        return a * b / GCD(a, b);
     }
 }
