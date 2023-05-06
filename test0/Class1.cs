@@ -5,35 +5,39 @@ class Program
     static void Main()
     {
         int data = int.Parse(Console.ReadLine());
-        double ans = 0;
+        double[] memoNum = new double[2];
 
-        for (int i = 0; i < data; i++)
+        for (int i = 2; i <= data / 2; i++)
         {
-            if (i == 0) ans = double.Parse(Console.ReadLine());
-            else
+            double diff = data - i;
+
+            if (!IsPrime(i)) continue;
+            else if (IsPrime(diff))
             {
-                double n = double.Parse(Console.ReadLine());
-                ans = LCM(ans, n);
+                if (memoNum[0] * memoNum[1] < i * diff)
+                {
+                    memoNum[0] = i;
+                    memoNum[1] = diff;
+                }
             }
         }
-        Console.WriteLine(ans);
-    }
 
-    static double GCD(double a, double b)
-    {
-        if (a < b) return GCD(b, a);
-
-        while (b != 0)
+        for (int i = 0; i < memoNum.Length; i++)
         {
-            double remainder = a % b;
-            a = b;
-            b = remainder;
+            Console.WriteLine(memoNum[i]);
         }
-        return a;
     }
 
-    static double LCM(double a, double b)
+    static bool IsPrime(double n)
     {
-        return a * b / GCD(a, b);
+        if (n <= 1) return false;
+        if (n == 2) return true;
+        if (n % 2 == 0) return false;
+
+        for (int i = 3; i * i <= n; i += 2)
+        {
+            if (n % i == 0) return false;
+        }
+        return true;
     }
 }
