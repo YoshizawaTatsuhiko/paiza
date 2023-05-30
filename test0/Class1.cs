@@ -1,36 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 class Program
 {
     static void Main()
     {
         int[] data = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        int maxValue = int.MinValue;
+        int[] intArray = new int[data[2] + 1];
+        intArray[0] = data[1];
+        Random random = new Random();
 
-        for (int i = 0; i < data[0]; i++)
+        for (int i = 0; i < data[2]; i++)
         {
-            Console.ReadLine();
+            int n = random.Next(1, data[0] + 1);
 
-            if (i + 1 == data[1])
+            while (intArray[i] == n)
             {
-                int[] intArray = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-
-                for (int k = 0; k < intArray.Length; k++)
-                {
-                    if (maxValue < intArray[k])
-                    {
-                        maxValue = intArray[k];
-                    }
-                }
+                n = random.Next(1, data[0] + 1);
             }
-            else
-            {
-                Console.ReadLine();
-                continue;
-            }
+            intArray[i + 1] = n;
         }
-        Console.WriteLine(maxValue);
+        Console.WriteLine(string.Join(" ", intArray));
     }
 }
