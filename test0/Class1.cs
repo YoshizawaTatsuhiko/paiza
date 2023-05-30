@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 class Program
 {
@@ -6,18 +7,20 @@ class Program
     {
         int[] data = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
         int[] intArray = new int[data[2] + 1];
-        intArray[0] = data[1];
+        List<int> vertexNum = new List<int>();
         Random random = new Random();
 
-        for (int i = 0; i < data[2]; i++)
+        for (int i = 1; i <= data[0]; i++)
         {
-            int n = random.Next(1, data[0] + 1);
+            if (i == data[1]) intArray[0] = i;
+            else vertexNum.Add(i);
+        }
 
-            while (intArray[i] == n)
-            {
-                n = random.Next(1, data[0] + 1);
-            }
-            intArray[i + 1] = n;
+        for (int i = 1; i <= data[2]; i++)
+        {
+            int n = random.Next(vertexNum.Count);
+            intArray[i] = vertexNum[n];
+            vertexNum.RemoveAt(n);
         }
         Console.WriteLine(string.Join(" ", intArray));
     }
