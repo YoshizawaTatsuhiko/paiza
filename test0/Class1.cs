@@ -39,9 +39,13 @@ class Program
             for (int i = 0; i < vertexInfo[vertex].Length; i++)
             {
                 int nextVertex = vertexInfo[vertex][i];
-                list.Add(nextVertex);
-                SearchRuts(nextVertex, list, walkCount - 1, vertexInfo, result, ref wayCount);
-                list.RemoveAt(list.Count - 1);
+
+                if (!list.Contains(nextVertex))
+                {
+                    list.Add(nextVertex);
+                    SearchRuts(nextVertex, list, walkCount - 1, vertexInfo, result, ref wayCount);
+                    list.RemoveAt(list.Count - 1);
+                }
             }
         }
     }
