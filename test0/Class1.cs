@@ -17,7 +17,7 @@ class Program
             Console.ReadLine();
             vertexInfo.Add(i, Array.ConvertAll(Console.ReadLine().Split(), int.Parse));
         }
-        SearchRuts(data[1], list, data[2], vertexInfo, result, ref wayCount);
+        SearchRuts(data[1], data[2], data[3], list, vertexInfo, result, ref wayCount);
         Console.WriteLine(wayCount);
 
         for (int i = 0; i < result.Count; i++)
@@ -26,24 +26,23 @@ class Program
         }
     }
 
-    static void SearchRuts(int vertex, List<int> list,
-        int walkCount, Dictionary<int, int[]> vertexInfo, List<string> result, ref int wayCount)
+    static void SearchRuts(int startVertex, int endVertex, int waypoint, List<int> list, Dictionary<int, int[]> vertexInfo, List<string> result, ref int wayCount)
     {
-        if (walkCount <= 0)
+        if (endVertex == startVertex && list.Contains(waypoint))
         {
             result.Add(string.Join(" ", list));
             wayCount++;
         }
         else
         {
-            for (int i = 0; i < vertexInfo[vertex].Length; i++)
+            for (int i = 0; i < vertexInfo[startVertex].Length; i++)
             {
-                int nextVertex = vertexInfo[vertex][i];
+                int nextVertex = vertexInfo[startVertex][i];
 
                 if (!list.Contains(nextVertex))
                 {
                     list.Add(nextVertex);
-                    SearchRuts(nextVertex, list, walkCount - 1, vertexInfo, result, ref wayCount);
+                    SearchRuts(nextVertex, endVertex, waypoint, list, vertexInfo, result, ref wayCount);
                     list.RemoveAt(list.Count - 1);
                 }
             }
