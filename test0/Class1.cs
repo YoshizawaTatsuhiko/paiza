@@ -1,61 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 
-class Program
+public class Program
 {
     static void Main()
     {
         int[] data = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        Dictionary<int, int[]> vertexInfo = new Dictionary<int, int[]>();
-        List<string> result = new List<string>();
-        List<int> list = new List<int>();
-        list.Add(data[1]);
-        int wayCount = 0;
+        int[,] adjacencyMatrix = new int[data[0], data[0]];
 
-        for (int i = 0; i <= data[0]; i++)
+        for (int i = 0; i < data[1]; i++)
         {
-            Console.ReadLine();
-            vertexInfo.Add(i, Array.ConvertAll(Console.ReadLine().Split(), int.Parse));
+            int[] info = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+            adjacencyMatrix[info[0] - 1, info[1] - 1] = 1;
+            adjacencyMatrix[info[1] - 1, info[0] - 1] = 1;
         }
-        SearchRuts(data[1], data[2], list, vertexInfo, result, ref wayCount);
-        Console.WriteLine(wayCount);
 
-        for (int i = 0; i < result.Count; i++)
+        for (int i = 0; i < adjacencyMatrix.GetLength(0); i++)
         {
-            Console.WriteLine(result[i]);
-        }
-    }
-
-    static void SearchRuts(int startVertex, int endVertex, List<int> list, Dictionary<int, int[]> vertexInfo, List<string> result, ref int wayCount)
-    {
-        if (endVertex == startVertex)
-        {
-            bool hasNotPassedPoint = true;
-
-            for (int i = 0; i < vertexInfo[0].Length; i++)
+            for (int j = 0; j < adjacencyMatrix.GetLength(1); j++)
             {
-                if (list.Contains(vertexInfo[0][i])) hasNotPassedPoint = false;
+                Console.Write(adjacencyMatrix[i, j]);
             }
-
-            if (hasNotPassedPoint)
-            {
-                result.Add(string.Join(" ", list));
-                wayCount++;
-            }
-        }
-        else
-        {
-            for (int i = 0; i < vertexInfo[startVertex].Length; i++)
-            {
-                int nextVertex = vertexInfo[startVertex][i];
-
-                if (!list.Contains(nextVertex))
-                {
-                    list.Add(nextVertex);
-                    SearchRuts(nextVertex, endVertex, list, vertexInfo, result, ref wayCount);
-                    list.RemoveAt(list.Count - 1);
-                }
-            }
+            Console.Write("\n");
         }
     }
 }
