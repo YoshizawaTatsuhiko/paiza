@@ -4,9 +4,24 @@ public class Program
 {
     static void Main()
     {
-        int[] boardSize = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        int height = boardSize[0];
-        int width = boardSize[1];
-        Console.WriteLine(height * width / 2);
+        int n = int.Parse(Console.ReadLine());
+        int max = int.MinValue;
+
+        for (int i = 1; i < n; i++)
+        {
+            for (int j = i + 1; j <= n; j++)
+            {
+                int d = GCD(i, j);
+
+                if(max < d) max = d;
+            }
+        }
+        Console.WriteLine(max);
+    }
+
+    static int GCD(int a, int b)
+    {
+        if (b == 0) return a;
+        return GCD(b, a % b);
     }
 }
