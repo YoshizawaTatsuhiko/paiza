@@ -4,17 +4,21 @@ class Program
 {
     static void Main()
     {
-        Console.ReadLine();
-        int[] getOffPassengers = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        int[] getOnPassengers = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        int maxPassenger = 0;
+        int n = int.Parse(Console.ReadLine());
+        float ops = 0f;
+        int batterNum = 1;
 
-        for (int i = 0, count = 0; i < getOnPassengers.Length; i++)
+        for (int i = 1; i <= n; i++)
         {
-            count += -getOffPassengers[i] + getOnPassengers[i];
+            float[] tmp = Array.ConvertAll(Console.ReadLine().Split(), float.Parse);
+            float tmpOps = tmp[0] + tmp[1];
 
-            if (count > maxPassenger) maxPassenger = count;
+            if (tmpOps > ops)
+            {
+                ops = tmpOps;
+                batterNum = i;
+            }
         }
-        Console.WriteLine(maxPassenger);
+        Console.WriteLine(batterNum);
     }
 }
