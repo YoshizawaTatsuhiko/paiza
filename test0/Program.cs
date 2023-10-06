@@ -5,24 +5,18 @@ class Program
     static void Main()
     {
         int[] data = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        int n = int.Parse(Console.ReadLine());
+        int x = data[0];
+        int d_1 = data[1];
+        int d_2 = data[2];
+        int k = data[3];
         int[] intArray = new int[1000 + 1];
-        intArray[1] = data[0];
-        int[] indeces = new int[n];
+        intArray[1] = x;
+        int[] addValues = new int[] { d_2, d_1 };
 
-        for (int i = 0; i < n; i++)
+        for (int i = 2, n = d_2; i <= 1000; i++, n = addValues[i % 2])
         {
-            indeces[i] = int.Parse(Console.ReadLine());
+            intArray[i] = intArray[i - 1] + n;
         }
-
-        for (int i = 2; i <= 1000; i++)
-        {
-            intArray[i] = intArray[i - 1] + data[1];
-        }
-
-        for (int i = 0; i < n; i++)
-        {
-            Console.WriteLine(intArray[indeces[i]]);
-        }
+        Console.WriteLine(intArray[k]);
     }
 }
