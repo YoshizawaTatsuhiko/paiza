@@ -8,17 +8,22 @@ class Program
         int h = datas[0];
         int w = datas[1];
         int n = datas[2];
-        string[] mapData = new string[w];
+        char[][] mapData = new char[h][];
 
         for (int i = 0; i < h; i++)
         {
-            mapData[i] = Console.ReadLine();
+            mapData[i] = Console.ReadLine().ToCharArray();
         }
-
+        
         for (int i = 0; i < n; i++)
         {
             int[] point = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-            Console.WriteLine(mapData[point[0]][point[1]]);
+            mapData[point[0]][point[1]] = '#';
+        }
+
+        foreach (var data in mapData)
+        {
+            Console.WriteLine(data);
         }
     }
 }
