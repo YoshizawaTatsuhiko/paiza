@@ -4,21 +4,21 @@ class Program
 {
     static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-        float ops = 0f;
-        int batterNum = 1;
+        int[] datas = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+        int h = datas[0];
+        int w = datas[1];
+        int n = datas[2];
+        string[] mapData = new string[w];
 
-        for (int i = 1; i <= n; i++)
+        for (int i = 0; i < h; i++)
         {
-            float[] tmp = Array.ConvertAll(Console.ReadLine().Split(), float.Parse);
-            float tmpOps = tmp[0] + tmp[1];
-
-            if (tmpOps > ops)
-            {
-                ops = tmpOps;
-                batterNum = i;
-            }
+            mapData[i] = Console.ReadLine();
         }
-        Console.WriteLine(batterNum);
+
+        for (int i = 0; i < n; i++)
+        {
+            int[] point = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+            Console.WriteLine(mapData[point[0]][point[1]]);
+        }
     }
 }
