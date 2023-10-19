@@ -20,12 +20,12 @@ class Program
         for (int r = 0; r < h; r++)
             for (int c = 0; c < w; c++)
             {
-                if (c == 0)
-                    isMatching = mapData[r][c + 1] == '#';
-                else if (c == w - 1)
-                    isMatching = mapData[r][c - 1] == '#';
+                if (r == 0)
+                    isMatching = mapData[r + 1][c] == '#';
+                else if (r == h - 1)
+                    isMatching = mapData[r - 1][c] == '#';
                 else 
-                    isMatching = mapData[r][c + 1] == '#' && mapData[r][c - 1] == '#';
+                    isMatching = mapData[r + 1][c] == '#' && mapData[r - 1][c] == '#';
 
                 if (isMatching)
                 {
