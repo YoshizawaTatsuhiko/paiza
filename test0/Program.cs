@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 class Program
 {
@@ -8,35 +7,34 @@ class Program
         int[] datas = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
         int h = datas[0];
         int w = datas[1];
-        char[][] mapData = new char[h][];
-        List<Tuple<int, int>> coodinate = new List<Tuple<int, int>>();
-        bool isMatching = false;
+        string[] mapData = new string[h + 2];
+        string dummyData = null;
 
-        for (int i = 0; i < h; i++)
+        for (int i = 0; i < w + 2; i++) dummyData += '#';
+
+        for (int i = 0; i < mapData.Length; i++)
         {
-            mapData[i] = Console.ReadLine().ToCharArray();
+            if(i == 0 || i == mapData.Length - 1) { mapData[i] = dummyData; continue; }
+
+            mapData[i] = $"#{Console.ReadLine()}#";
         }
         
-        for (int r = 0; r < h; r++)
-            for (int c = 0; c < w; c++)
+        for (int r = 1; r <= h; r++)
+            for (int c = 1; c <= w; c++)
             {
-                if (r == 0)
-                    isMatching = mapData[r + 1][c] == '#';
-                else if (r == h - 1)
-                    isMatching = mapData[r - 1][c] == '#';
-                else 
-                    isMatching = mapData[r + 1][c] == '#' && mapData[r - 1][c] == '#';
-
-                if (isMatching)
-                {
-                    coodinate.Add(new Tuple<int, int>(r, c));
-                    isMatching = false;
-                }
+                if (IsSurround(mapData, r, c)) Console.WriteLine($"{r - 1} {c - 1}");
             }
+    }
 
-        foreach (var cood in coodinate)
-        {
-            Console.WriteLine($"{cood.Item1} {cood.Item2}");
-        }
+    static bool IsSurround(string[] mapData, int r, int c)
+    {
+        int n = 0;
+
+        if (mapData[r + 1][c] == '#') n++;
+        if (mapData[r - 1][c] == '#') n++;
+        if (mapData[r][c + 1] == '#') n++;
+        if (mapData[r][c - 1] == '#') n++;
+
+        return n == 4;
     }
 }
