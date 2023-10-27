@@ -4,37 +4,19 @@ class Program
 {
     static void Main()
     {
-        int[] datas = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        int h = datas[0];
-        int w = datas[1];
-        string[] mapData = new string[h + 2];
-        string dummyData = null;
+        int[] data = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+        int h = data[0];
+        int w = data[1];
+        string str = "";
 
-        for (int i = 0; i < w + 2; i++) dummyData += '#';
-
-        for (int i = 0; i < mapData.Length; i++)
+        for (int r = 0; r < h; r++)
         {
-            if(i == 0 || i == mapData.Length - 1) { mapData[i] = dummyData; continue; }
+            str = Console.ReadLine();
 
-            mapData[i] = $"#{Console.ReadLine()}#";
-        }
-        
-        for (int r = 1; r <= h; r++)
-            for (int c = 1; c <= w; c++)
+            for(int c = 0; c < w; c++)
             {
-                if (IsSurround(mapData, r, c)) Console.WriteLine($"{r - 1} {c - 1}");
+                if (str[c] == '#') { Console.WriteLine($"{r} {c}"); break; }
             }
-    }
-
-    static bool IsSurround(string[] mapData, int r, int c)
-    {
-        int n = 0;
-
-        if (mapData[r + 1][c] == '#') n++;
-        if (mapData[r - 1][c] == '#') n++;
-        if (mapData[r][c + 1] == '#') n++;
-        if (mapData[r][c - 1] == '#') n++;
-
-        return n == 4;
+        }
     }
 }
