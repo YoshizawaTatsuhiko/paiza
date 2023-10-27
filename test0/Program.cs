@@ -4,29 +4,27 @@ class Program
 {
     static void Main()
     {
-        int[] data = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        int currentY = data[0];
-        int currentX = data[1];
-        int orderCount = data[2];
+        string[] data = Console.ReadLine().Split();
+        int currentY = int.Parse(data[0]);
+        int currentX = int.Parse(data[1]);
+        string direction = data[2];
+        string order = Console.ReadLine();
 
-        for (int i = 0; i < orderCount; i++)
+        switch (direction)
         {
-            switch (Console.ReadLine())
-            {
-                case "N":
-                    currentY--;
-                    break;
-                case "S":
-                    currentY++;
-                    break;
-                case "E":
-                    currentX++;
-                    break;
-                case "W":
-                    currentX--;
-                    break;
-            }
-            Console.WriteLine($"{currentY} {currentX}");
+            case "N":
+                currentX += order == "R" ? 1 : -1;
+                break;
+            case "S":
+                currentX += order == "R" ? -1 : 1;
+                break;
+            case "E":
+                currentY += order == "R" ? 1 : -1;
+                break;
+            case "W":
+                currentY += order == "R" ? -1 : 1;
+                break;
         }
+        Console.WriteLine($"{currentY} {currentX}");
     }
 }
