@@ -5,18 +5,28 @@ class Program
     static void Main()
     {
         int[] data = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        int h = data[0];
-        int w = data[1];
-        string str = "";
+        int currentY = data[0];
+        int currentX = data[1];
+        int orderCount = data[2];
 
-        for (int r = 0; r < h; r++)
+        for (int i = 0; i < orderCount; i++)
         {
-            str = Console.ReadLine();
-
-            for(int c = 0; c < w; c++)
+            switch (Console.ReadLine())
             {
-                if (str[c] == '#') { Console.WriteLine($"{r} {c}"); break; }
+                case "N":
+                    currentY--;
+                    break;
+                case "S":
+                    currentY++;
+                    break;
+                case "E":
+                    currentX++;
+                    break;
+                case "W":
+                    currentX--;
+                    break;
             }
+            Console.WriteLine($"{currentY} {currentX}");
         }
     }
 }
