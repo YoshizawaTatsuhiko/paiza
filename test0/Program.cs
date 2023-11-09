@@ -1,15 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 
 class Program
 {
     static void Main()
     {
+        Dictionary<char, int> alphabetDic = new Dictionary<char, int>();
         string str = Console.ReadLine();
-        char c = Console.ReadLine()[0];
+
+        for (char alph = 'a'; alph <= 'z'; alph++)
+        {
+            alphabetDic[alph] = 0;
+        }
 
         for (int i = 0; i < str.Length; i++)
         {
-            if (str[i] == c) { Console.WriteLine(i + 1); break; }
+            alphabetDic[str[i]]++;
+        }
+
+        foreach (var item in alphabetDic)
+        {
+            Console.WriteLine(item.Value);
         }
     }
 }
