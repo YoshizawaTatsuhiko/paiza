@@ -1,26 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 
 class Program
 {
     static void Main()
     {
-        Dictionary<char, int> alphabetDic = new Dictionary<char, int>();
         string str = Console.ReadLine();
+        string subStr = Console.ReadLine();
+        Console.WriteLine(SubStringCount(str, subStr));
+    }
 
-        for (char alph = 'a'; alph <= 'z'; alph++)
-        {
-            alphabetDic[alph] = 0;
-        }
+    static int SubStringCount(string str, string subStr)
+    {
+        if (str.Length < subStr.Length) return 0;
 
-        for (int i = 0; i < str.Length; i++)
-        {
-            alphabetDic[str[i]]++;
-        }
+        int count = 0;
 
-        foreach (var item in alphabetDic)
+        for (int i = 0; i <= str.Length - subStr.Length; i++)
         {
-            Console.WriteLine(item.Value);
+            if (str.Substring(i, subStr.Length) == subStr) count++;
         }
+        return count;
     }
 }
