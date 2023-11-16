@@ -33,7 +33,7 @@ class Program
             int newRow = myPos.Item1 + dir.Item1;
             int newCol = myPos.Item2 + dir.Item2;
 
-            if (IsIndexInRange(map, newRow, newCol))
+            if (IsIndexInRange(map, newRow, newCol) && map[newRow][newCol] != '#')
             {
                 map[newRow][newCol] = '*';
             }
