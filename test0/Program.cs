@@ -3,39 +3,19 @@ using System.Collections.Generic;
 
 class Program
 {
-    private static Dictionary<int, List<int>> _adjacencyList = new Dictionary<int, List<int>>();
-    private static Stack<int> _stack = new Stack<int>();
-    private static HashSet<int> _visitedList = new HashSet<int>();
-
     private static void Main()
     {
-        int[] datas = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        int n = datas[0], m = datas[1], x = datas[2];
+        int[] intArray = null;
 
-        for (int i = 1; i <= n; i++) _adjacencyList.Add(i, new List<int>());
+        Console.ReadLine();
+        intArray = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
 
-        for (int i = 0; i < m; i++)
+        for (int i = 0, loopCount = int.Parse(Console.ReadLine()); i < loopCount; i++)
         {
-            int[] data = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-            _adjacencyList[data[0]].Add(data[1]);
-            _adjacencyList[data[1]].Add(data[0]);
-        }
+            int data = int.Parse(Console.ReadLine());
+            int n = Array.BinarySearch(intArray, data);
 
-        foreach(var valueList in _adjacencyList.Values) valueList.Sort();
-        DFS(x);
-
-        foreach(var item in _visitedList) Console.WriteLine(item);
-    }
-
-    private static void DFS(int vertex)
-    {
-        if (!_visitedList.Add(vertex)) return;
-
-        foreach (var data in _adjacencyList[vertex])
-        {
-            _stack.Push(vertex);
-            DFS(data);
-            _stack.Pop();
+            Console.WriteLine(n < 0 ? "No" : "Yes");
         }
     }
 }
