@@ -4,14 +4,8 @@ class Program
 {
     private static void Main()
     {
-        long n = long.Parse(Console.ReadLine());
-        long data = int.Parse(Console.ReadLine()) - 1;
-
-        for (int i = 1; i < n; i++)
-        {
-            data = LCM(data, int.Parse(Console.ReadLine()) - 1);
-        }
-        Console.WriteLine(data);
+        int[] data = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+        Console.WriteLine(LCM(data[0], data[1]));
     }
 
     private static long GCD(long a, long b) => b == 0 ? a : GCD(b, a % b);
