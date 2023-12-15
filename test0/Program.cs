@@ -11,7 +11,7 @@ class Program
         {
             data[i] = int.Parse(Console.ReadLine());
         }
-        Console.WriteLine($"{GCD(data)}\n{LCM(data)}");
+        Console.WriteLine(GCD(data));
     }
 
     private static long GCD(long[] datas)
@@ -25,18 +25,5 @@ class Program
         return gcd;
     }
 
-    private static long LCM(long[] datas)
-    {
-        long lcm = datas[0];
-
-        for (int i = 1; i < datas.Length; i++)
-        {
-            lcm = LCM(lcm, datas[i]);
-        }
-        return lcm;
-    }
-
     private static long GCD(long a, long b) => b == 0 ? a : GCD(b, a % b);
-
-    private static long LCM(long a, long b) => a * b / GCD(a, b);
 }
